@@ -1,0 +1,17 @@
+C:\_src\Assessment\Assessment\bin\Debug\netcoreapp3.1\Assessment.exe
+C:\_src\Assessment\Assessment\bin\Debug\netcoreapp3.1\Assessment.deps.json
+C:\_src\Assessment\Assessment\bin\Debug\netcoreapp3.1\Assessment.runtimeconfig.json
+C:\_src\Assessment\Assessment\bin\Debug\netcoreapp3.1\Assessment.runtimeconfig.dev.json
+C:\_src\Assessment\Assessment\bin\Debug\netcoreapp3.1\Assessment.dll
+C:\_src\Assessment\Assessment\bin\Debug\netcoreapp3.1\Assessment.pdb
+C:\_src\Assessment\Assessment\bin\Debug\netcoreapp3.1\RestSharp.dll
+C:\_src\Assessment\Assessment\bin\Debug\netcoreapp3.1\System.Text.Json.dll
+C:\_src\Assessment\Assessment\obj\Debug\netcoreapp3.1\Assessment.csproj.AssemblyReference.cache
+C:\_src\Assessment\Assessment\obj\Debug\netcoreapp3.1\Assessment.GeneratedMSBuildEditorConfig.editorconfig
+C:\_src\Assessment\Assessment\obj\Debug\netcoreapp3.1\Assessment.AssemblyInfoInputs.cache
+C:\_src\Assessment\Assessment\obj\Debug\netcoreapp3.1\Assessment.AssemblyInfo.cs
+C:\_src\Assessment\Assessment\obj\Debug\netcoreapp3.1\Assessment.csproj.CoreCompileInputs.cache
+C:\_src\Assessment\Assessment\obj\Debug\netcoreapp3.1\Assessment.csproj.CopyComplete
+C:\_src\Assessment\Assessment\obj\Debug\netcoreapp3.1\Assessment.dll
+C:\_src\Assessment\Assessment\obj\Debug\netcoreapp3.1\Assessment.pdb
+C:\_src\Assessment\Assessment\obj\Debug\netcoreapp3.1\Assessment.genruntimeconfig.cache

@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "/ny3j9OU/6QGBmrDAqZ5AU/NUc55JYTTIAEeZtXXrSzXrzZTlOThzB8W7WHTgXWAFSs2z9NNcj136FCADzvD8w==",
+  "success": true,
+  "projectFilePath": "C:\\_src\\Assessment\\Assessment\\Assessment.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\8504095137082\\.nuget\\packages\\restsharp\\107.3.0\\restsharp.107.3.0.nupkg.sha512",
+    "C:\\Users\\8504095137082\\.nuget\\packages\\system.text.json\\5.0.0\\system.text.json.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
