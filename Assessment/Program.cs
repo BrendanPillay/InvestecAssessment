@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿using Assessment.Models;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,71 +12,73 @@ namespace Assessment
     {
         public static async Task Main(string[] args)
         {
+            var data = await GetPeople();
+
+            var buddies = FilterBuddies(data);
+
+            var groupedBuddies = buddies.GroupBy(x => x.BuddyNumber)
+                                        .Select(y => new
+                                        {
+                                            Name = string.Join(", ", y.Select(x => x.Name))
+                                        })
+                                        .ToList();
+
+            groupedBuddies.ForEach(x => Console.WriteLine($"\n Buddies: {x.Name} \n"));
+
+        }
+
+        private static List<Buddies> FilterBuddies(RawData filterData)
+        {
+            List<Buddies> buddies = new List<Buddies>();
+
+            for (int i = 0; i < filterData.results.Count; i++)
+            {
+                var bud = filterData.results.Where(x => x.films.SequenceEqual(filterData.results[i].films))
+                                           .Select(y => new Buddies
+                                           {
+                                               BuddyNumber = i,
+                                               Name = y.name,
+                                               Films = y.films
+                                           }).ToList();
+
+                var buddyNotAdded = !buddies.Any(x => bud.Any(y => y.Name == x.Name));
+
+                if (buddyNotAdded)
+                {
+                    buddies.AddRange(bud);
+                }
+            }
+            return buddies;
+
+        }
+
+        private static async Task<RawData> GetPeople()
+        {
+            var listRawData = new RawData() { results = new List<FilmDetails>() };
+
             var path = "https://swapi.dev/api/people";
 
-            var data = await ExtractData(path);
-
-            var buddies = FilterBuddies(data.Content);
-
-
-            buddies.ForEach(x => Console.WriteLine($"Name: {x.name}"));
-        }
-
-        private static List<Buddies> FilterBuddies(string data)
-        {
-           var listBuddies = new List<Buddies>();
-
-            var filterData = JsonSerializer.Deserialize<RawData>(data);
-
-
-            //var result = filterData.results.GroupBy(x=> x.)
-
-            //for (int i = 0; i < filterData.results.Count; i++)
-            //{
-            //    var buddy = filterData.results[i];
-            //}
-
-            var result = filterData.results.Where(x => filterData.results.Where(y => y != x)
-                                            .Any(z => z.films.SequenceEqual(x.films)))
-                                            .Select(data => new Buddies
-                                            {
-                                                name = data.name,
-                                                films = data.films
-                                            }).ToList();
-
-            //var result2 = filterData.results
-            //                            .Where(y=> y.films
-            //                            .Any(filterData.results.Select(x=> x.films))
-
-
-
-            //var result = filterData.results.Any(y => y.films)
-
-            return result;
-
-        }
-
-        private static async Task<RestResponse> ExtractData(string path)
-        {
             var client = new RestClient(path);
             var request = new RestRequest();
 
             var response = await client.ExecuteAsync(request);
+            var pagedRequest = JsonSerializer.Deserialize<RawData>(response.Content);
 
-            //var mappedResponse = JsonSerializer.Deserialize<List<Buddies>>(response.Content);
+            listRawData.results.AddRange(pagedRequest.results);
 
-            return response;
+            if (listRawData != null)
+            {
+                while (!string.IsNullOrWhiteSpace(pagedRequest.next))
+                {
+                    var pagedClient = new RestClient(pagedRequest.next);
+                    response = await pagedClient.ExecuteAsync(request);
+
+                    pagedRequest = JsonSerializer.Deserialize<RawData>(response.Content);
+                    listRawData.results.AddRange(pagedRequest.results);
+                }
+            }
+
+            return listRawData;
         }
-    }
-
-    public class RawData
-    {
-        public List<Buddies> results { get; set; }
-    }
-
-    public class Buddies
-    {
-        public string name{ get; set; }
-        public List<string> films { get; set; }
     }
 }
